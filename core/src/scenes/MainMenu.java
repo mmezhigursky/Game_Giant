@@ -1,4 +1,4 @@
-package scenes;
+/**package scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,6 +10,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameMain;
 
@@ -18,7 +23,7 @@ import helpers.GameInfo;
 import player.Player;
 
 
-public class MainMenu implements Screen {
+public class MainMenu implements Screen, ContactListener {
 
     private GameMain game;
 
@@ -43,9 +48,11 @@ public class MainMenu implements Screen {
 
         world = new World(new Vector2(0,-6.6f), true);
 
-        bg= new Texture("Game BG.png");
+        world.setContactListener(this);
 
-        player = new Player(world,"Player 1.png", GameInfo.WIDTH/2, GameInfo.HEIGHT/2+250);
+        bg= new Texture("Backgrounds\\Game BG.png");
+
+        player = new Player(world,"Player\\Player 1.png", GameInfo.WIDTH/2, GameInfo.HEIGHT/2+250);
 
         Cloud c = new Cloud(world);
     }
@@ -66,6 +73,10 @@ public class MainMenu implements Screen {
                 player.getBody().applyForce(new Vector2(+5f,0),
                         player.getBody().getWorldCenter(), true);
             }
+
+            else if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+                  player.getBody().applyLinearImpulse(new Vector2(0,0.3f),
+                         player.getBody().getWorldCenter(), true);}
 
     }
 
@@ -123,4 +134,37 @@ public class MainMenu implements Screen {
         player.getTexture().dispose();
 
     }
+
+    @Override
+    public void beginContact(Contact contact) {
+
+        Fixture firstBody, secodBody;
+
+        if(contact.getFixtureA().getUserData() == "Player"){
+            firstBody = contact.getFixtureA();
+            secodBody = contact.getFixtureB();
+
+        }else {
+            firstBody = contact.getFixtureB();
+            secodBody = contact.getFixtureA();
+            System.out.println(firstBody);
+        }
+        System.out.println("The name of first body is " + firstBody.getUserData());
+    }
+
+    @Override
+    public void endContact(Contact contact) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, ContactImpulse impulse) {
+
+    }
 }
+*/

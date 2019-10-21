@@ -50,6 +50,7 @@ public class Player extends Sprite {
 
 
         Fixture fixture = body.createFixture(fixtureDef);
+        fixture.setUserData("Player");
 
         shape.dispose();
     }
