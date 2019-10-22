@@ -22,8 +22,8 @@ public class Cloud extends Sprite {
         super(new Texture("Clouds\\"+ cloudName + ".png"));
         this.world =world;
         this.cloudName = cloudName;
-        setPosition(GameInfo.WIDTH/2f, GameInfo.HEIGHT/2f -130);
-        createBody();
+       // setPosition(GameInfo.WIDTH/2f, GameInfo.HEIGHT/2f -130);
+      // createBody();
     }
 
      void createBody(){
@@ -35,14 +35,14 @@ public class Cloud extends Sprite {
 
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
-        bodyDef.position.set((getX() + getWidth()/2) / GameInfo.PPM,
-                (getY()/getHeight()/2)/ GameInfo.PPM);
+        bodyDef.position.set((getX()+35) / GameInfo.PPM,
+                (getY()+20)/ GameInfo.PPM);
 
         body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox((getWidth()/2)/ GameInfo.PPM,
-                (getHeight()/2)/ GameInfo.PPM);
+       // shape.setAsBox((getWidth()/2-20)/ GameInfo.PPM,
+        //        (getHeight()/2)/ GameInfo.PPM);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -50,7 +50,7 @@ public class Cloud extends Sprite {
 
 
         Fixture fixture = body.createFixture(fixtureDef);
-        fixture.setUserData("Cloud");
+      //  fixture.setUserData("Cloud");
        // fixture.setSensor(true);
 
         shape.dispose();
@@ -63,6 +63,7 @@ public class Cloud extends Sprite {
     }
 
     public String getCloudName(){
+
         return this.cloudName;
     }
 

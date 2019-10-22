@@ -9,10 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameMain;
 
+import clouds.Cloud;
+import clouds.CloudsController;
 import helpers.GameInfo;
 
 public class GamePlay implements Screen {
@@ -23,9 +26,19 @@ public class GamePlay implements Screen {
 
     private Viewport gameViewport;
 
+    private OrthographicCamera box2DCamera;
+
+    private Box2DDebugRenderer debugRenderer;
+
+    private World world;
+
     private Sprite [] bgs;
 
     private float lastYPosition;
+
+    private CloudsController cloudsController;
+
+
 
 
     public GamePlay(GameMain game){
@@ -35,6 +48,21 @@ public class GamePlay implements Screen {
         mainCamera.position.set(GameInfo.WIDTH/2f, GameInfo.HEIGHT/2f,0);
 
         gameViewport = new StretchViewport(GameInfo.WIDTH, GameInfo.HEIGHT, mainCamera);
+
+        box2DCamera = new OrthographicCamera();
+
+        box2DCamera.setToOrtho(false, GameInfo.WIDTH/GameInfo.PPM,
+                GameInfo.HEIGHT/GameInfo.PPM);
+
+        box2DCamera.position.set(GameInfo.WIDTH/2f,
+                GameInfo.HEIGHT/2f, 0);
+
+        debugRenderer = new Box2DDebugRenderer();
+
+        world = new World(new Vector2(0,-9.8f),true);
+
+        cloudsController = new CloudsController(world);
+
 
         createBackgrounds();
 
@@ -100,7 +128,11 @@ public class GamePlay implements Screen {
 
         drawBackgrounds();
 
+        cloudsController.drawClouds(game.getBatch());
+
         game.getBatch().end();
+
+        debugRenderer.render(world, box2DCamera.combined);
 
         game.getBatch().setProjectionMatrix(mainCamera.combined);
         mainCamera.update();
