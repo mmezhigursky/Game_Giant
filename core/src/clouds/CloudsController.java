@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import helpers.GameInfo;
+import player.Player;
 
 
 public class CloudsController {
@@ -69,10 +70,6 @@ public class CloudsController {
             if(clouds.get(clouds.indexOf("Dark Cloud")+1).getCloudName() == "Dark Cloud"){
                 Collections.shuffle(clouds);
             }
-        }
-
-        while (clouds.get(0).getCloudName() == "Dark Cloud"){
-            Collections.shuffle(clouds);
         }
 
         float positionY = 0;
@@ -137,6 +134,12 @@ public class CloudsController {
 
     public void setCameraY(float cameraY){
         this.cameraY = cameraY;
+    }
+
+    public Player positioThePlayer(Player player){
+        player = new Player(world, clouds.get(0).getX(),
+                clouds.get(0).getY() + 100 );
+        return player;
     }
 
     private float randomBetweenNumbers(float min, float max){

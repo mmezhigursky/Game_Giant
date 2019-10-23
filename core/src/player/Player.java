@@ -2,6 +2,7 @@ package player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -18,9 +19,9 @@ public class Player extends Sprite {
     private Body body;
 
 
-    public Player(World world, String name, float x, float y){
+    public Player(World world, float x, float y){
 
-        super(new Texture(name));
+        super(new Texture("Player/Player 1.png"));
         this.world= world;
         setPosition(x - getWidth()/2, y - getHeight()/2);
         createBody();
@@ -45,14 +46,22 @@ public class Player extends Sprite {
         shape.setAsBox((getWidth()/2)/ GameInfo.PPM, (getHeight()/2)/ GameInfo.PPM);
 
         FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.density = 4f;
+        fixtureDef.friction = 2f;
         fixtureDef.shape = shape;
-        fixtureDef.density = 1;
+
+
 
 
         Fixture fixture = body.createFixture(fixtureDef);
         fixture.setUserData("Player");
 
         shape.dispose();
+    }
+
+    public void drawPlayer(SpriteBatch batch){
+        batch.draw(this, getX() - getWidth() / 2f,
+                getY() - getHeight() / 2f );
     }
 
     public void updatePlayer(){

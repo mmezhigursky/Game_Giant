@@ -39,6 +39,8 @@ public class GamePlay implements Screen {
 
     private CloudsController cloudsController;
 
+    private Player player;
+
 
 
 
@@ -66,6 +68,8 @@ public class GamePlay implements Screen {
 
         cloudsController = new CloudsController(world);
 
+        player = cloudsController.positioThePlayer(player);
+
 
 
 
@@ -75,7 +79,7 @@ public class GamePlay implements Screen {
     }
 
     void update(float delt){
-        moveCamera();
+ //       moveCamera();
         checkBackgroundsOutOfBounds();
         cloudsController.setCameraY(mainCamera.position.y);
         cloudsController.createAndArranfNewClouds();
@@ -138,6 +142,7 @@ public class GamePlay implements Screen {
 
         cloudsController.drawClouds(game.getBatch());
 
+        player.drawPlayer(game.getBatch());
 
         game.getBatch().end();
 
@@ -145,6 +150,10 @@ public class GamePlay implements Screen {
 
         game.getBatch().setProjectionMatrix(mainCamera.combined);
         mainCamera.update();
+
+        player.updatePlayer();
+
+        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
 
     }
 

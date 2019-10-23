@@ -41,12 +41,12 @@ public class Cloud extends Sprite {
         body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-       // shape.setAsBox((getWidth()/2-20)/ GameInfo.PPM,
-        //        (getHeight()/2)/ GameInfo.PPM);
+        shape.setAsBox((getWidth())/ GameInfo.PPM,
+                (getHeight()/2)/ GameInfo.PPM);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-      //  fixtureDef.density = 1;
+        fixtureDef.density = 1;
 
 
         Fixture fixture = body.createFixture(fixtureDef);
