@@ -17,6 +17,7 @@ import com.mygdx.game.GameMain;
 import clouds.Cloud;
 import clouds.CloudsController;
 import helpers.GameInfo;
+import player.Player;
 
 public class GamePlay implements Screen {
 
@@ -37,6 +38,8 @@ public class GamePlay implements Screen {
     private float lastYPosition;
 
     private CloudsController cloudsController;
+
+
 
 
 
@@ -64,6 +67,8 @@ public class GamePlay implements Screen {
         cloudsController = new CloudsController(world);
 
 
+
+
         createBackgrounds();
 
 
@@ -72,6 +77,9 @@ public class GamePlay implements Screen {
     void update(float delt){
         moveCamera();
         checkBackgroundsOutOfBounds();
+        cloudsController.setCameraY(mainCamera.position.y);
+        cloudsController.createAndArranfNewClouds();
+
 
     }
 
@@ -129,6 +137,7 @@ public class GamePlay implements Screen {
         drawBackgrounds();
 
         cloudsController.drawClouds(game.getBatch());
+
 
         game.getBatch().end();
 
