@@ -88,12 +88,14 @@ public class CloudsController {
                 float tempX = 0;
 
                 if (controlX == 0) {
-                    tempX = randomBetweenNumbers(maxX , maxX);
+                    tempX = randomBetweenNumbers(maxX - 40, maxX);
                     controlX =1;
+                    c.setDrawLeft(false);
 
                 }else if (controlX == 1){
-                    tempX = randomBetweenNumbers(minX , minX);
+                    tempX = randomBetweenNumbers(minX + 40, minX);
                     controlX =0;
+                    c.setDrawLeft(true);
 
                 }
 
@@ -111,8 +113,12 @@ public class CloudsController {
 
     public void drawClouds (SpriteBatch batch){
         for (Cloud c : clouds) {
-
-            batch.draw(c, c.getX() - c.getWidth() /2f, c.getY() - c.getHeight() /2f);
+            if ((c.getDrawLeft())){
+                batch.draw(c, c.getX() - c.getWidth() /2f-10,
+                        c.getY() - c.getHeight() /2f);
+            }
+                else{ batch.draw(c, c.getX() - c.getWidth() /2f+10,
+                    c.getY() - c.getHeight() /2f);}
         }
     }
 
