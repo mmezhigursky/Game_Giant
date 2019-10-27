@@ -78,7 +78,19 @@ public class GamePlay implements Screen {
 
     }
 
+    void hendalInput(float delt){
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            player.movePlayer(-2);
+        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            player.movePlayer(2);
+        }else{
+            player.setWalking(false);
+        }
+
+    }
+
     void update(float delt){
+        hendalInput(delt);
  //       moveCamera();
         checkBackgroundsOutOfBounds();
         cloudsController.setCameraY(mainCamera.position.y);
@@ -142,7 +154,8 @@ public class GamePlay implements Screen {
 
         cloudsController.drawClouds(game.getBatch());
 
-        player.drawPlayer(game.getBatch());
+        player.drawPlayerIdle(game.getBatch());
+        player.drawPlayerAnimation(game.getBatch());
 
         game.getBatch().end();
 

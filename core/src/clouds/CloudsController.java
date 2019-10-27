@@ -114,7 +114,7 @@ public class CloudsController {
     public void drawClouds (SpriteBatch batch){
         for (Cloud c : clouds) {
             if ((c.getDrawLeft())){
-                batch.draw(c, c.getX() - c.getWidth() /2f-10,
+                batch.draw(c, c.getX() - c.getWidth() /2f+25,
                         c.getY() - c.getHeight() /2f);
             }
                 else{ batch.draw(c, c.getX() - c.getWidth() /2f+10,
