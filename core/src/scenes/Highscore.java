@@ -1,32 +1,17 @@
 package scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameMain;
 
-import clouds.Cloud;
 import helpers.GameInfo;
-import huds.MainMenuButtons;
-import player.Player;
 
-
-public class MainMenu implements Screen {
+public class Highscore implements Screen {
 
     private GameMain game;
 
@@ -35,22 +20,18 @@ public class MainMenu implements Screen {
 
     private Texture bg;
 
-    private MainMenuButtons btns;
-
-    public MainMenu (GameMain game){
+    public  Highscore(GameMain game){
         this.game = game;
+
         mainCamera = new OrthographicCamera();
         mainCamera.setToOrtho(false, GameInfo.WIDTH, GameInfo.HEIGHT);
+        mainCamera.position.set(GameInfo.WIDTH / 2f, GameInfo.HEIGHT / 2f, 0);
 
-        mainCamera.position.set(GameInfo.WIDTH /2f, GameInfo.HEIGHT/2f, 0);
+        gameVieport = new StretchViewport(GameInfo.WIDTH, GameInfo.HEIGHT,
+                mainCamera);
 
-        gameVieport = new StretchViewport(GameInfo.WIDTH, GameInfo.HEIGHT, mainCamera);
-
-        bg = new Texture("Backgrounds\\Menu BG.png");
-
-        btns = new MainMenuButtons(game);
+        bg = new Texture("Backgrounds\\Highscore BG.png");
     }
-
 
     @Override
     public void show() {
@@ -59,7 +40,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(1,0,0,1);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -69,10 +49,6 @@ public class MainMenu implements Screen {
         game.getBatch().draw(bg, 0, 0);
 
         game.getBatch().end();
-
-        game.getBatch().setProjectionMatrix(btns.getStage().getCamera().combined);
-
-        btns.getStage().draw();
 
     }
 
@@ -99,7 +75,6 @@ public class MainMenu implements Screen {
     @Override
     public void dispose() {
         bg.dispose();
-        btns.getStage().dispose();
 
     }
 }
