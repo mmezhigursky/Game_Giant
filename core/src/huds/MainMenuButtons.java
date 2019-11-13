@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import helpers.GameInfo;
 import scenes.GamePlay;
 import scenes.Highscore;
+import scenes.Options;
 
 public class MainMenuButtons {
 
@@ -115,14 +116,14 @@ public class MainMenuButtons {
         optionsBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("The play was pressed");
+                game.setScreen(new Options(game));
             }
         });
 
         quitBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("The quit was pressed");
+
             }
         });
 

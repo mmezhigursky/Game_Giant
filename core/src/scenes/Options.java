@@ -5,37 +5,35 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameMain;
 
 import helpers.GameInfo;
-import huds.HighscoreButtons;
 
-public class Highscore implements Screen {
+public class Options implements Screen {
 
     private GameMain game;
 
+    private Viewport gameViewport;
+
     private OrthographicCamera mainCamera;
-    private Viewport gameVieport;
 
     private Texture bg;
 
-    private HighscoreButtons btns;
-
-    public  Highscore(GameMain game){
+    public Options(GameMain game){
         this.game = game;
 
         mainCamera = new OrthographicCamera();
         mainCamera.setToOrtho(false, GameInfo.WIDTH, GameInfo.HEIGHT);
-        mainCamera.position.set(GameInfo.WIDTH / 2f, GameInfo.HEIGHT / 2f, 0);
+        mainCamera.position.set(GameInfo.WIDTH/2f, GameInfo.HEIGHT/2f, 0);
 
-        gameVieport = new StretchViewport(GameInfo.WIDTH, GameInfo.HEIGHT,
-                mainCamera);
+        gameViewport = new StretchViewport(GameInfo.WIDTH, GameInfo.HEIGHT, mainCamera);
 
-        bg = new Texture("Backgrounds\\Highscore BG.png");
-
-        btns = new HighscoreButtons(game);
+        bg = new Texture("Backgrounds\\Options BG.png");
 
     }
 
@@ -52,18 +50,14 @@ public class Highscore implements Screen {
 
         game.getBatch().begin();
 
-        game.getBatch().draw(bg, 0, 0);
+        game.getBatch().draw(bg,0,0);
 
         game.getBatch().end();
-
-        game.getBatch().setProjectionMatrix(btns.getStage().getCamera().combined);
-        btns.getStage().draw();
 
     }
 
     @Override
     public void resize(int width, int height) {
-        gameVieport.update(width, height);
 
     }
 
@@ -84,7 +78,6 @@ public class Highscore implements Screen {
 
     @Override
     public void dispose() {
-        bg.dispose();
 
     }
 }
