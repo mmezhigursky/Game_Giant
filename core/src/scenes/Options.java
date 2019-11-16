@@ -24,6 +24,8 @@ public class Options implements Screen {
 
     private Texture bg;
 
+    private Optionsbuttons btns;
+
     public Options(GameMain game){
         this.game = game;
 
@@ -34,6 +36,8 @@ public class Options implements Screen {
         gameViewport = new StretchViewport(GameInfo.WIDTH, GameInfo.HEIGHT, mainCamera);
 
         bg = new Texture("Backgrounds\\Options BG.png");
+
+        btns = new Optionsbuttons(game);
 
     }
 
@@ -54,10 +58,14 @@ public class Options implements Screen {
 
         game.getBatch().end();
 
+        game.getBatch().setProjectionMatrix(btns.getStage().getCamera().combined);
+        btns.getStage().draw();
+
     }
 
     @Override
     public void resize(int width, int height) {
+        gameViewport.update(width,height);
 
     }
 
@@ -78,6 +86,8 @@ public class Options implements Screen {
 
     @Override
     public void dispose() {
+        btns.getStage().dispose();
+        bg.dispose();
 
     }
 }
