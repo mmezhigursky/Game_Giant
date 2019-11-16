@@ -17,6 +17,7 @@ import com.mygdx.game.GameMain;
 import clouds.Cloud;
 import clouds.CloudsController;
 import helpers.GameInfo;
+import huds.UIHud;
 import player.Player;
 
 public class GamePlay implements Screen {
@@ -36,6 +37,8 @@ public class GamePlay implements Screen {
     private Sprite [] bgs;
 
     private float lastYPosition;
+
+    private UIHud hud;
 
     private CloudsController cloudsController;
 
@@ -61,6 +64,8 @@ public class GamePlay implements Screen {
 
         box2DCamera.position.set(GameInfo.WIDTH/2f,
                 GameInfo.HEIGHT/2f, 0);
+
+        hud =new UIHud(game);
 
         debugRenderer = new Box2DDebugRenderer();
 
@@ -164,6 +169,10 @@ public class GamePlay implements Screen {
         game.getBatch().setProjectionMatrix(mainCamera.combined);
         mainCamera.update();
 
+        game.getBatch().setProjectionMatrix(hud.getStage().getCamera().combined);
+
+        hud.getStage().draw();
+
         player.updatePlayer();
 
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
@@ -172,6 +181,7 @@ public class GamePlay implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        gameViewport.update(width, height);
 
     }
 

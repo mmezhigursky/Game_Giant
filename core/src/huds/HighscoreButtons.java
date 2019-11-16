@@ -61,10 +61,10 @@ public class HighscoreButtons {
         parameter.size = 40;
 
         BitmapFont scoreFont = generator.generateFont(parameter);
-        BitmapFont coinFont = generator.generateFont(parameter);
+        //BitmapFont coinFont = generator.generateFont(parameter);
 
         scoreLabel = new Label("100", new Label.LabelStyle(scoreFont, Color.WHITE));
-        coinLabel = new Label("100", new Label.LabelStyle(coinFont, Color.WHITE));
+        coinLabel = new Label("100", new Label.LabelStyle(scoreFont, Color.WHITE));
 
         backBtn.setPosition(50, 17, Align.bottomRight);
 
